@@ -1,7 +1,10 @@
-const express = require("express")
+const express = require("express");
+const { Pool } = require("pg");
+const databaseConfig = require("./config");
 const port = process.env.PORT || 5000
 
 const app = express();
+const pool = new Pool(databaseConfig);
 
 app.get("/", (req, res) => {
   res.status(200).json({
