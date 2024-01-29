@@ -1,20 +1,19 @@
 const express = require("express");
 const { Pool } = require("pg");
 const databaseConfig = require("./config");
-const port = process.env.PORT || 5000
+const cors = require("cors");
+const apiRoutes = require("./apiroutes");
+
 
 const app = express();
 const pool = new Pool(databaseConfig);
 
-app.get("/", (req, res) => {
-  res.status(200).json({
-    id: 1,
-    user: "Admin",
-    age: 27
+app.use(cors());
+app.use(express.json());
+app.use('/api', apiRoutes);
 
-  })
-})
 
-app.listen(port, () => {
-  console.log("Serveur en ligne ! ")
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
+});
